@@ -21,10 +21,7 @@ const boardTypes = gql`
   input createBoardInput {
     isPrivate: Boolean!
     title: String!
-    description: String
     coverUrl: String
-    adminId: String!
-    membersId: [String]!
   }
 `;
 

@@ -7,16 +7,25 @@ const boardResolvers: IResolvers = {
     board: async (root, args) => {
       return await Board.findById(args.id);
     },
-    boards: () => Board.find({}),
+    boards: async (root, args, context) => {
+      return await Board.find({});
+    },
   },
   Mutation: {
-    createBoard: async (root, { input }) => {
-      return await Board.create(input);
+    createBoard: async (root, { input }, { user }) => {
+      input.adminId = user._id;
+      const board = await Board.create(input);
+      await Board.updateOne(
+        { _id: board._id },
+        { $push: { membersId: user._id } }
+      );
+      return board;
     },
   },
   Board: {
     lists: async (board) => await List.find({ boardId: board._id }),
     members: async (board) => await User.find({ _id: board.membersId }),
+    admin: async (board) => await User.findOne({ _id: board.adminId }),
   },
 };
 export default boardResolvers;
