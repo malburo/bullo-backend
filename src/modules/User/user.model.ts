@@ -4,21 +4,27 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    fullname: String,
+    fullname: { type: String },
     username: { unique: true, type: String },
     email: { unique: true, type: String },
-    password: String,
+    password: { type: String },
     confirmed: { type: Boolean, default: false },
-    profilePictureUrl: {
-      type: String,
-      default:
-        "https://res.cloudinary.com/malburo/image/upload/v1593193329/default-avatar/631929649c_tbfndr.svg",
-    },
+    profilePictureUrl: { type: String },
   },
   {
+    toJSON: {
+      virtuals: true,
+      versionKey: false,
+      transform: (doc, obj) => {
+        delete obj.password;
+        return obj;
+      },
+    },
     timestamps: true,
   }
 );
+
+userSchema.set("timestamps", true);
 
 const User = mongoose.model("users", userSchema);
 

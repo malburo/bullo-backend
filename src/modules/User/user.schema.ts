@@ -6,7 +6,8 @@ const userTypes = gql`
     users: [User!]
   }
   extend type Mutation {
-    register(input: registerInput): User
+    register(input: registerInput): AuthPayload
+    login(input: loginInput): AuthPayload
   }
   type User {
     id: ID!
@@ -15,10 +16,17 @@ const userTypes = gql`
     profilePictureUrl: String
     boards: [Board]
   }
+  type AuthPayload {
+    access_token: String!
+  }
   input registerInput {
     fullname: String
     username: String
     email: String
+    password: String
+  }
+  input loginInput {
+    username: String
     password: String
   }
 `;
