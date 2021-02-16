@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import boardTypes from "./modules/Board/board.schema";
-import cardTypes from "./modules/Card/card.schema";
+import taskTypes from "./modules/Task/task.schema";
 import commentTypes from "./modules/Comment/comment.schema";
 import labelTypes from "./modules/Label/label.schema";
 import listTypes from "./modules/List/list.schema";
@@ -19,7 +19,7 @@ export default [
   userTypes,
   boardTypes,
   listTypes,
-  cardTypes,
+  taskTypes,
   commentTypes,
   labelTypes,
   queryTypes,
