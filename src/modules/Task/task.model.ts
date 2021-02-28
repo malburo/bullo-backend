@@ -6,6 +6,7 @@ const taskSchema = new Schema({
   title: String,
   description: String,
   coverUrl: String,
+  pos: { type: Number, required: true },
   listId: { type: Schema.Types.ObjectId, ref: "lists" },
   membersId: [{ type: Schema.Types.ObjectId, ref: "users" }],
 });

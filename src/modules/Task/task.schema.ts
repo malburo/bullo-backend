@@ -15,10 +15,7 @@ const taskTypes = gql`
   }
   input createTaskInput {
     title: String!
-    coverUrl: String
-    description: String
     listId: String!
-    membersId: [String]!
   }
 `;
 
