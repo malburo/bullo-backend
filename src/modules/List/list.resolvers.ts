@@ -7,12 +7,19 @@ const listResolvers: IResolvers = {
     createList: async (root, { input }) => {
       return await List.create(input);
     },
-    dndList: async (root, { input }) => {
-      return await List.create(input);
+    updatePosList: async (root, { input }) => {
+      await List.findOneAndUpdate(
+        { boardId: input.boardId, pos: input.destination },
+        { $set: { pos: input.source } }
+      );
+      await List.findByIdAndUpdate(input.listId, {
+        $set: { pos: input.destination },
+      });
+      return { message: "Success" };
     },
   },
   List: {
-    tasks: (list) => Task.find({ listId: list._id }),
+    tasks: (list) => Task.find({ listId: list._id }).sort({ pos: 1 }),
   },
 };
 export default listResolvers;

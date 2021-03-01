@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 const taskTypes = gql`
   extend type Mutation {
     createTask(input: createTaskInput): Task
+    updatePosTask(input: updatePosTaskInput): Status
   }
   type Task {
     id: ID!
@@ -16,6 +17,16 @@ const taskTypes = gql`
   input createTaskInput {
     title: String!
     listId: String!
+    pos: Int!
+  }
+  input updatePosTaskInput {
+    taskId: String!
+    source: Drop!
+    destination: Drop!
+  }
+  input Drop {
+    droppableId: String!
+    index: Int!
   }
 `;
 

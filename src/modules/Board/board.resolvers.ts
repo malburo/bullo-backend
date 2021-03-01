@@ -23,7 +23,8 @@ const boardResolvers: IResolvers = {
     },
   },
   Board: {
-    lists: async (board) => await List.find({ boardId: board._id }),
+    lists: async (board) =>
+      await List.find({ boardId: board._id }).sort({ pos: 1 }),
     members: async (board) => await User.find({ _id: board.membersId }),
     admin: async (board) => await User.findOne({ _id: board.adminId }),
   },

@@ -3,18 +3,22 @@ import { gql } from "apollo-server-express";
 const listTypes = gql`
   extend type Mutation {
     createList(input: createListInput): List
-    dndList(input: dndListInput): List
+    updatePosList(input: updatePosListInput): Status
   }
   type List {
     id: ID!
     title: String!
     tasks: [Task]
   }
+  type Status {
+    message: String!
+  }
   input createListInput {
     title: String!
     boardId: String!
+    pos: Int!
   }
-  input dndListInput {
+  input updatePosListInput {
     boardId: String!
     listId: String!
     source: Int!
